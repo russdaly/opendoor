@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>open door</title>
+<meta name="description" content="Your church's Facebook and Instagram ads and guest follow-up in one simple app. Make an ad in five minutes, text every person who answers, and see who comes on Sunday.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+<style>
+/* layout: one long story told along a "journey line" (ad, text, plan a visit, first Sunday, second Sunday), drawn as doorways */
+:root {
+  --red: #F04A35; --red-deep: #C9331F; --ink: #241A17; --muted: #6E605A; --paper: #FFFFFF; --wash: #FBF4F1; --line: #EFE3DE; --soft: #FDE7E2; --green: #1E7A47;
+  --display: "Nunito", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  --body: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+/* light is the default; the visitor can switch to dark with the button in the top bar */
+:root[data-mode="dark"] .phone { background: #3A302C; }
+:root[data-mode="dark"] { --ink: #F6EEEA; --muted: #B9AAA3; --paper: #171312; --wash: #211A18; --line: #352B28; --soft: #3A211C; --red: #FF5C47; --red-deep: #FF7A68; --green: #4CC384; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img, svg { max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 8px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 900; letter-spacing: -.03em; line-height: 1.04; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(32px, 4.6vw, 52px); }
+h3 { font-size: 22px; font-weight: 800; letter-spacing: -.015em; line-height: 1.2; }
+p { margin: 0; }
+.wrap { width: min(1160px, 100% - 40px); margin: 0 auto; }
+.lede { color: var(--muted); font-size: 19px; max-width: 58ch; }
+.kicker { font-family: var(--display); font-weight: 800; color: var(--red); font-size: 15px; letter-spacing: .02em; }
+.btn { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 999px; font-family: var(--display); font-weight: 800; font-size: 17px; text-decoration: none; border: 2px solid var(--red); background: var(--red); color: #fff; transition: transform .15s, background-color .15s; }
+.btn:hover { background: var(--red-deep); border-color: var(--red-deep); transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--ink); background: transparent; }
+.btn svg { width: 18px; height: 18px; }
+
+/* nav */
+.nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; gap: 28px; height: 70px; }
+.logo { display: flex; align-items: center; gap: 9px; color: var(--red); text-decoration: none; }
+.logo svg.mk { height: 34px; aspect-ratio: 312 / 388; width: auto; }
+.logo svg.wm { height: 24px; aspect-ratio: 476 / 98; width: auto; }
+.nav nav { display: flex; gap: 24px; margin-left: auto; font-weight: 500; }
+.nav nav a { text-decoration: none; color: var(--muted); }
+.nav nav a:hover { color: var(--ink); }
+.nav .btn { height: 42px; padding: 0 18px; font-size: 15px; }
+.mode { width: 42px; height: 42px; flex: none; border-radius: 50%; border: 1.5px solid var(--line); background: var(--paper); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+.mode:hover { border-color: var(--ink); }
+.mode svg { width: 19px; height: 19px; }
+.mode .sun { display: none; }
+:root[data-mode="dark"] .mode .sun { display: block; }
+:root[data-mode="dark"] .mode .moon { display: none; }
+
+/* hero */
+.hero { padding: 72px 0 40px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 56px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 6.6vw, 82px); margin: 14px 0 22px; }
+.hero h1 em { font-style: normal; color: var(--red); }
+.hero .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.hero .note { margin-top: 16px; color: var(--muted); font-size: 15px; }
+
+/* phone */
+.phone { justify-self: center; width: min(360px, 100%); border-radius: 44px; background: #241A17; padding: 12px; box-shadow: 0 30px 80px -30px rgba(36,26,23,.55); }
+.screen { border-radius: 34px; background: var(--wash); overflow: hidden; }
+.sbar { display: flex; justify-content: space-between; padding: 14px 22px 6px; font-size: 13px; font-weight: 700; color: var(--ink); }
+.ad { margin: 8px 12px; background: var(--paper); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+.ad .top { display: flex; gap: 10px; align-items: center; padding: 12px 14px 8px; font-size: 13px; }
+.ad .av { width: 30px; height: 30px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-weight: 800; font-family: var(--display); }
+.ad .top small { display: block; color: var(--muted); font-size: 11px; }
+.ad .pic { background: #F04A35; color: #fff; padding: 22px 18px; aspect-ratio: 1.25; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.ad .pic b { font-family: var(--display); font-weight: 900; font-size: 30px; line-height: 1; letter-spacing: -.02em; }
+.ad .pic span { font-size: 12px; font-weight: 700; opacity: .9; }
+.ad .bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; font-size: 13px; }
+.ad .bar i { font-style: normal; background: var(--wash); border-radius: 6px; padding: 5px 10px; font-weight: 700; font-size: 12px; }
+.chat { padding: 6px 12px 16px; display: grid; gap: 8px; }
+.bub { max-width: 82%; padding: 9px 13px; border-radius: 18px; font-size: 14px; line-height: 1.4; animation: rise .5s ease-out both; }
+.bub.out { justify-self: end; background: var(--red); color: #fff; border-bottom-right-radius: 6px; }
+.bub.in { justify-self: start; background: var(--paper); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+.bub:nth-child(2) { animation-delay: .5s; } .bub:nth-child(3) { animation-delay: 1s; }
+.chip { justify-self: center; font-size: 12px; font-weight: 700; color: var(--green); background: color-mix(in srgb, var(--green) 14%, transparent); padding: 4px 12px; border-radius: 999px; animation: rise .5s 1.5s ease-out both; }
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+
+/* journey line */
+.journey { padding: 40px 0 24px; }
+.steps5 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); position: relative; }
+.steps5::before { content: ""; position: absolute; left: 10%; right: 10%; top: 31px; border-top: 3px dotted var(--line); }
+.steps5 li { text-align: center; position: relative; display: grid; justify-items: center; gap: 10px; padding: 0 8px; }
+.steps5 .door { width: 54px; height: 64px; background: var(--paper); display: grid; place-items: center; position: relative; }
+.steps5 .door svg { width: 44px; height: 54px; color: var(--muted); }
+.steps5 li:last-child .door svg { color: var(--red); }
+.steps5 b { font-family: var(--display); font-weight: 800; font-size: 17px; }
+.steps5 small { color: var(--muted); font-size: 14px; line-height: 1.4; max-width: 20ch; }
+
+/* sections */
+section.block { padding: 96px 0; }
+section.tint { background: var(--wash); }
+.head { display: grid; gap: 14px; margin-bottom: 44px; max-width: 760px; }
+.pains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.pain { border-top: 3px solid var(--ink); padding-top: 18px; display: grid; gap: 8px; }
+.pain p { color: var(--muted); }
+
+.how { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: s; }
+.how li { counter-increment: s; background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 26px 24px 28px; display: grid; gap: 10px; align-content: start; }
+.how li::before { content: counter(s); font-family: var(--display); font-weight: 900; font-size: 44px; color: var(--red); line-height: 1; }
+.how p { color: var(--muted); font-size: 16px; }
+.how .time { font-size: 13px; font-weight: 700; color: var(--ink); background: var(--soft); border-radius: 999px; padding: 2px 10px; justify-self: start; }
+
+.feat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px 40px; }
+.feat div { display: grid; gap: 8px; align-content: start; }
+.feat svg { width: 30px; height: 30px; color: var(--red); }
+.feat p { color: var(--muted); font-size: 16px; }
+
+/* monday */
+.monday .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 56px; align-items: center; }
+.panel { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px -40px rgba(36,26,23,.4); }
+.panel .ph { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; font-family: var(--display); font-weight: 800; font-size: 19px; }
+.panel .ph span { font-size: 13px; color: #fff; background: var(--red); border-radius: 999px; padding: 1px 10px; }
+.row { display: flex; align-items: center; gap: 14px; padding: 14px 22px; border-top: 1px solid var(--line); }
+.row .ic { width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--wash); font-weight: 800; color: var(--muted); }
+.row .ic.u { background: var(--soft); color: var(--red); }
+.row div { flex: 1; min-width: 0; }
+.row b { display: block; font-size: 15px; }
+.row small { color: var(--muted); font-size: 13px; }
+.row i { font-style: normal; font-weight: 700; font-size: 13px; border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
+.row i.p { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* honest */
+.honest { background: var(--ink); color: var(--paper); border-radius: 32px; padding: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.honest h2 { color: var(--paper); }
+.honest p { color: color-mix(in srgb, var(--paper) 75%, var(--ink)); }
+.honest ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.honest li { display: flex; gap: 12px; }
+.honest li svg { width: 22px; height: 22px; flex: none; color: var(--red); margin-top: 2px; }
+
+/* compare */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 24px; background: var(--paper); }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 16px; }
+th, td { text-align: left; padding: 16px 22px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--display); font-weight: 800; font-size: 17px; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { color: var(--muted); }
+.us { background: var(--soft); }
+th.us { color: var(--red); }
+
+/* pricing */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.plan { border: 1px solid var(--line); background: var(--paper); border-radius: 28px; padding: 30px 28px; display: grid; gap: 14px; align-content: start; }
+.plan.pop { border: 2px solid var(--red); }
+.plan .tag { font-size: 13px; font-weight: 700; color: var(--red); }
+.plan .price { font-family: var(--display); font-weight: 900; font-size: 52px; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.plan .price small { font-size: 17px; font-weight: 700; color: var(--muted); letter-spacing: 0; }
+.plan .yr { color: var(--muted); font-size: 14px; margin-top: -6px; }
+.plan ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; }
+.plan li { display: flex; gap: 10px; }
+.plan li::before { content: ""; width: 16px; height: 16px; flex: none; margin-top: 4px; border-radius: 50%; background: var(--soft); box-shadow: inset 0 0 0 5px var(--red); }
+.plan .btn { justify-content: center; margin-top: 8px; }
+.founding { margin-top: 22px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; border: 2px dashed var(--red); border-radius: 22px; padding: 18px 24px; }
+.founding b { font-family: var(--display); font-weight: 900; font-size: 20px; }
+.founding p { color: var(--muted); flex: 1; min-width: 240px; }
+.fine { margin-top: 16px; color: var(--muted); font-size: 14px; }
+
+/* pay once */
+.lifetime { margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 28px; align-items: center; border: 1px solid var(--line); border-radius: 28px; padding: 28px 30px; background: var(--paper); }
+.lifetime p { color: var(--muted); margin-top: 8px; }
+.lifeprices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.lifeprices div { border-radius: 18px; background: var(--wash); padding: 16px; display: grid; gap: 2px; }
+.lifeprices span { font-size: 14px; font-weight: 700; color: var(--muted); }
+.lifeprices b { font-family: var(--display); font-weight: 900; font-size: 30px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.lifeprices small { color: var(--muted); font-size: 13px; }
+@media (max-width: 980px) { .lifetime { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; } }
+@media (max-width: 520px) { .lifeprices { grid-template-columns: minmax(0, 1fr); } }
+
+/* ad budget */
+.spend { margin-top: 40px; border: 1px solid var(--line); border-radius: 28px; background: var(--wash); padding: 34px 32px; display: grid; gap: 24px; }
+.spend-head { display: grid; gap: 10px; max-width: 760px; }
+.spend-head p { color: var(--muted); }
+.spend .tablewrap { background: var(--paper); }
+.spend table { min-width: 560px; }
+.spend td:first-child { color: var(--ink); font-weight: 700; }
+.spend td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.expect { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.expect li { display: grid; gap: 6px; align-content: start; }
+.expect b { font-family: var(--display); font-weight: 900; font-size: 30px; letter-spacing: -.02em; color: var(--red); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.expect span { color: var(--muted); font-size: 15px; }
+.src { color: var(--muted); font-size: 13px; }
+.plan .only { font-size: 13px; color: var(--muted); margin-top: -8px; }
+@media (max-width: 980px) { .expect { grid-template-columns: minmax(0, 1fr); } .spend { padding: 26px 20px; } }
+
+/* faq */
+.faq { display: grid; gap: 12px; max-width: 820px; }
+details { border: 1px solid var(--line); border-radius: 18px; background: var(--paper); padding: 0 22px; }
+summary { cursor: pointer; padding: 18px 0; font-family: var(--display); font-weight: 800; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--red); font-size: 24px; line-height: 1; }
+details[open] summary::after { content: "−"; }
+details p { padding: 0 0 20px; color: var(--muted); }
+
+/* business + final */
+.biz { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 36px; }
+.biz p { color: var(--muted); flex: 1; min-width: 260px; }
+.final { text-align: center; display: grid; justify-items: center; gap: 22px; }
+.final h2 { font-size: clamp(38px, 6vw, 68px); }
+.final .mk { height: 72px; aspect-ratio: 312 / 388; width: auto; color: var(--red); }
+footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wrap: wrap; align-items: center; }
+
+@media (max-width: 980px) {
+  .hero .wrap, .monday .wrap, .honest { grid-template-columns: minmax(0, 1fr); }
+  .how { grid-template-columns: repeat(2, 1fr); }
+  .feat, .plans, .pains { grid-template-columns: minmax(0, 1fr); }
+  .honest { padding: 36px 26px; }
+}
+@media (max-width: 720px) {
+  .nav nav { display: none; }
+  .nav .mode { margin-left: auto; }
+  .hero { padding-top: 40px; }
+  .steps5 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .steps5::before { display: none; }
+  .steps5 li { grid-template-columns: 54px minmax(0, 1fr); text-align: left; justify-items: start; align-items: center; column-gap: 14px; row-gap: 0; }
+  .steps5 li .door { grid-row: span 2; }
+  .how { grid-template-columns: minmax(0, 1fr); }
+  section.block { padding: 64px 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="door" viewBox="100 88 312 388"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M140 436V244a116 116 0 0 1 232 0v192" stroke-width="40"/><path d="M184 414V246C184 198 212 172 238 178C262 184 278 208 278 238V392Z" fill="currentColor" stroke-width="18"/></g></symbol>
+    <symbol id="wm" viewBox="-6 -75 476 98"><path fill="currentColor" d="M30.10 1.10L30.10 1.10Q21.90 1.10 15.80-2Q9.70-5.10 6.30-10.90Q2.90-16.70 2.90-24.60L2.90-24.60Q2.90-30.60 4.80-35.35Q6.70-40.10 10.30-43.45Q13.90-46.80 18.90-48.55Q23.90-50.30 30.10-50.30L30.10-50.30Q38.30-50.30 44.40-47.20Q50.50-44.10 53.85-38.35Q57.20-32.60 57.20-24.60L57.20-24.60Q57.20-18.70 55.30-13.90Q53.40-9.10 49.85-5.75Q46.30-2.40 41.25-0.65Q36.20 1.10 30.10 1.10ZM30.10-12L30.10-12Q32.80-12 34.90-13.35Q37-14.70 38.15-17.45Q39.30-20.20 39.30-24.60L39.30-24.60Q39.30-31.30 36.70-34.25Q34.10-37.20 30.10-37.20L30.10-37.20Q27.40-37.20 25.30-35.90Q23.20-34.60 22-31.85Q20.80-29.10 20.80-24.60L20.80-24.60Q20.80-18 23.40-15Q26-12 30.10-12ZM70.70 18.90L70.70 18.90Q66.50 18.90 64.20 16.60Q61.90 14.30 61.90 9.90L61.90 9.90L61.90-41.20Q61.90-45.50 64.15-47.80Q66.40-50.10 70.60-50.10L70.60-50.10Q74.90-50.10 77.20-47.80L77.20-47.80Q79-45.90 79.30-42.70L79.30-42.70Q80.90-45.60 84.20-47.60L84.20-47.60Q88.60-50.30 94.30-50.30L94.30-50.30Q100.70-50.30 105.55-47.20Q110.40-44.10 113.10-38.40Q115.80-32.70 115.80-24.60L115.80-24.60Q115.80-16.70 113.10-10.90Q110.40-5.10 105.55-2Q100.70 1.10 94.30 1.10L94.30 1.10Q88.80 1.10 84.40-1.50L84.40-1.50Q81.40-3.30 79.70-5.90L79.70-5.90L79.70 9.90Q79.70 14.30 77.35 16.60Q75 18.90 70.70 18.90ZM88.70-12L88.70-12Q91.40-12 93.45-13.35Q95.50-14.70 96.70-17.45Q97.90-20.20 97.90-24.60L97.90-24.60Q97.90-31.30 95.30-34.25Q92.70-37.20 88.70-37.20L88.70-37.20Q86-37.20 83.90-35.90Q81.80-34.60 80.60-31.85Q79.40-29.10 79.40-24.60L79.40-24.60Q79.40-18 82-15Q84.60-12 88.70-12ZM147.20 1.10L147.20 1.10Q138.20 1.10 131.65-2.05Q125.10-5.20 121.60-11Q118.10-16.80 118.10-24.70L118.10-24.70Q118.10-32.30 121.45-38.05Q124.80-43.80 130.65-47.05Q136.50-50.30 144-50.30L144-50.30Q149.50-50.30 154-48.55Q158.50-46.80 161.70-43.45Q164.90-40.10 166.55-35.40Q168.20-30.70 168.20-24.90L168.20-24.90Q168.20-22.90 167.10-21.95Q166-21 163.60-21L163.60-21L135.10-21Q135.80-17.10 138-15.10L138-15.10Q141.10-12 147.70-12L147.70-12Q149.90-12 152.75-12.55Q155.60-13.10 158.20-14.10Q160.80-15.10 162.70-14.45Q164.60-13.80 165.65-12.25Q166.70-10.70 166.80-8.75Q166.90-6.80 165.90-4.95Q164.90-3.10 162.60-2.10L162.60-2.10Q159.10-0.50 155.15 0.30Q151.20 1.10 147.20 1.10ZM135-29.40L135-29.40L153.60-29.40Q153.40-32.20 152.60-34.10L152.60-34.10Q151.60-36.40 149.65-37.60Q147.70-38.80 144.80-38.80L144.80-38.80Q141.70-38.80 139.45-37.35Q137.20-35.90 136-33.10L136-33.10Q135.30-31.50 135-29.40ZM181.20 0.90L181.20 0.90Q177 0.90 174.70-1.40Q172.40-3.70 172.40-8.10L172.40-8.10L172.40-41.20Q172.40-45.50 174.65-47.80Q176.90-50.10 181.10-50.10Q185.30-50.10 187.50-47.80L187.50-47.80Q189.40-45.80 189.70-42.40L189.70-42.40Q191.90-45.80 195.50-47.80L195.50-47.80Q199.90-50.30 205.60-50.30L205.60-50.30Q211.50-50.30 215.30-48.05Q219.10-45.80 221-41.05Q222.90-36.30 222.90-29.10L222.90-29.10L222.90-8.10Q222.90-3.70 220.60-1.40Q218.30 0.90 214 0.90Q209.70 0.90 207.40-1.40Q205.10-3.70 205.10-8.10L205.10-8.10L205.10-28.40Q205.10-32.90 203.55-34.80Q202-36.70 199-36.70L199-36.70Q195-36.70 192.60-34.15Q190.20-31.60 190.20-27.30L190.20-27.30L190.20-8.10Q190.20 0.90 181.20 0.90ZM273.80 1.10L273.80 1.10Q267.50 1.10 262.65-2Q257.80-5.10 255.05-10.90Q252.30-16.70 252.30-24.60L252.30-24.60Q252.30-32.70 255.05-38.40Q257.80-44.10 262.65-47.20Q267.50-50.30 273.80-50.30L273.80-50.30Q279.30-50.30 283.70-47.70L283.70-47.70Q286.80-45.80 288.50-43.20L288.50-43.20L288.50-62.40Q288.50-66.80 290.80-69.10Q293.10-71.40 297.40-71.40L297.40-71.40Q301.60-71.40 303.95-69.10Q306.30-66.80 306.30-62.40L306.30-62.40L306.30-8.10Q306.30-3.70 304.05-1.40Q301.80 0.90 297.50 0.90L297.50 0.90Q293.30 0.90 291-1.40L291-1.40Q289.10-3.30 288.80-6.50L288.80-6.50Q287.20-3.60 284-1.70L284-1.70Q279.50 1.10 273.80 1.10ZM279.50-12L279.50-12Q282.20-12 284.30-13.35Q286.40-14.70 287.55-17.45Q288.70-20.20 288.70-24.60L288.70-24.60Q288.70-31.30 286.10-34.25Q283.50-37.20 279.50-37.20L279.50-37.20Q276.80-37.20 274.70-35.90Q272.60-34.60 271.40-31.85Q270.20-29.10 270.20-24.60L270.20-24.60Q270.20-18 272.80-15Q275.40-12 279.50-12ZM338 1.10L338 1.10Q329.80 1.10 323.70-2Q317.60-5.10 314.20-10.90Q310.80-16.70 310.80-24.60L310.80-24.60Q310.80-30.60 312.70-35.35Q314.60-40.10 318.20-43.45Q321.80-46.80 326.80-48.55Q331.80-50.30 338-50.30L338-50.30Q346.20-50.30 352.30-47.20Q358.40-44.10 361.75-38.35Q365.10-32.60 365.10-24.60L365.10-24.60Q365.10-18.70 363.20-13.90Q361.30-9.10 357.75-5.75Q354.20-2.40 349.15-0.65Q344.10 1.10 338 1.10ZM338-12L338-12Q340.70-12 342.80-13.35Q344.90-14.70 346.05-17.45Q347.20-20.20 347.20-24.60L347.20-24.60Q347.20-31.30 344.60-34.25Q342-37.20 338-37.20L338-37.20Q335.30-37.20 333.20-35.90Q331.10-34.60 329.90-31.85Q328.70-29.10 328.70-24.60L328.70-24.60Q328.70-18 331.30-15Q333.90-12 338-12ZM394.70 1.10L394.70 1.10Q386.50 1.10 380.40-2Q374.30-5.10 370.90-10.90Q367.50-16.70 367.50-24.60L367.50-24.60Q367.50-30.60 369.40-35.35Q371.30-40.10 374.90-43.45Q378.50-46.80 383.50-48.55Q388.50-50.30 394.70-50.30L394.70-50.30Q402.90-50.30 409-47.20Q415.10-44.10 418.45-38.35Q421.80-32.60 421.80-24.60L421.80-24.60Q421.80-18.70 419.90-13.90Q418-9.10 414.45-5.75Q410.90-2.40 405.85-0.65Q400.80 1.10 394.70 1.10ZM394.70-12L394.70-12Q397.40-12 399.50-13.35Q401.60-14.70 402.75-17.45Q403.90-20.20 403.90-24.60L403.90-24.60Q403.90-31.30 401.30-34.25Q398.70-37.20 394.70-37.20L394.70-37.20Q392.00-37.20 389.90-35.90Q387.80-34.60 386.60-31.85Q385.40-29.10 385.40-24.60L385.40-24.60Q385.40-18 388.00-15Q390.60-12 394.70-12ZM435.60 0.90L435.60 0.90Q431.20 0.90 428.85-1.40Q426.50-3.70 426.50-8.10L426.50-8.10L426.50-41.20Q426.50-45.50 428.75-47.80Q431.00-50.10 435.20-50.10Q439.40-50.10 441.60-47.80Q443.80-45.50 443.80-41.20L443.80-41.20L443.80-40.80Q445.20-44.30 448.00-46.60L448.00-46.60Q452.10-50.10 458.30-50.30L458.30-50.30Q461.20-50.40 462.65-48.85Q464.10-47.30 464.20-43.10L464.20-43.10Q464.20-39.50 462.70-37.40Q461.20-35.30 457.00-34.90L457.00-34.90L454.70-34.70Q449.40-34.20 447.00-31.75Q444.60-29.30 444.60-24.50L444.60-24.50L444.60-8.10Q444.60-3.70 442.30-1.40Q440.00 0.90 435.60 0.90Z"/></symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="open door home"><svg class="mk" aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg><svg class="wm" aria-hidden="true"><use href="#wm" width="100%" height="100%"/></svg></a>
+    <nav aria-label="Main"><a href="#how">How it works</a><a href="#features">What it does</a><a href="#pricing">Pricing</a><a href="#faq">Questions</a></nav>
+    <button class="mode" id="mode" type="button" aria-label="Switch to dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+    <a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="kicker">For churches that want to reach their town</p>
+        <h1>From first click to <em>first Sunday.</em></h1>
+        <p class="lede">open door makes your Facebook and Instagram ad, texts every person who answers within minutes, and writes your replies for you. Then it shows you who actually walked through the door.</p>
+        <div class="cta"><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start your 14-day free trial <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="#how">See how it works</a></div>
+        <p class="note">No agency. No Ads Manager. Set up in about 10 minutes.</p>
+      </div>
+      <div class="phone" role="img" aria-label="Example: a church's ad on Facebook, then the text conversation that follows">
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><span>Sunday, 7:12 AM</span></div>
+          <div class="ad">
+            <div class="top"><span class="av">G</span><div><b>Grace Hill Church</b><small>Sponsored</small></div></div>
+            <div class="pic"><b>Plan your first visit</b><span>Sundays at 10 AM · Maple Elementary</span></div>
+            <div class="bar"><span><b>Save me a seat</b></span><i>Sign up</i></div>
+          </div>
+          <div class="chat">
+            <div class="bub out">Hi Sarah! Thanks for reaching out to Grace Hill. We'd love to save you a seat Sunday at 10. Bringing any kids?</div>
+            <div class="bub in">Yes, two! 4 and 7. Is there something for them?</div>
+            <div class="bub out">Kids Club has both ages covered. Look for the red door, we'll walk you in.</div>
+            <span class="chip">Sarah is planning to visit Sunday</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="journey" aria-label="The guest journey">
+    <div class="wrap">
+      <ol class="steps5">
+        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Sees your ad</b><small>On Facebook or Instagram, near your church</small></li>
+        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Gets a text</b><small>From your church, within minutes</small></li>
+        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Picks a Sunday</b><small>Questions answered, seat saved</small></li>
+        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>First visit</b><small>Greeted by name at the door</small></li>
+        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Comes back</b><small>Followed up until they're home</small></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head"><p class="kicker">Why most church ads don't work</p><h2>The ad was never the hard part.</h2></div>
+      <div class="pains">
+        <div class="pain"><h3>Boosted posts get likes, not visitors</h3><p>Ads Manager is built for marketers. Most churches boost a post, see a few likes and stop.</p></div>
+        <div class="pain"><h3>Forms sit in an inbox for days</h3><p>Someone finally raises their hand, and nobody texts back until Thursday. By then they've moved on.</p></div>
+        <div class="pain"><h3>Help costs more than the ads</h3><p>An agency charges a monthly fee on top of ad spend, and still can't tell you who came on Sunday.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tint" id="how">
+    <div class="wrap">
+      <div class="head"><p class="kicker">How it works</p><h2>Four steps. The first ad takes about five minutes.</h2><p class="lede">Everything is written for you with your church's own service times, location and kids info. Change anything you like, or just press next.</p></div>
+      <ol class="how">
+        <li><span class="time">About 5 minutes</span><h3>Paste in your website</h3><p>open door reads it and fills in your times, address, kids ministry and common questions.</p></li>
+        <li><span class="time">Once</span><h3>Connect Facebook, Instagram and texting</h3><p>Link your Facebook Page, your Instagram account and a local number. Leads flow straight in from then on.</p></li>
+        <li><span class="time">About 5 minutes</span><h3>Make your ad</h3><p>Pick a picture, choose from three versions of the words, set your area and a daily budget. See it exactly as Facebook will show it.</p></li>
+        <li><span class="time">Every day</span><h3>Turn it on and say hi</h3><p>Every person gets a warm text right away. Your Home screen lists who needs you, with the reply already written.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="wrap">
+      <div class="head"><p class="kicker">What it does</p><h2>Everything between the ad and the second Sunday.</h2></div>
+      <div class="feat">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M7 9h6M7 13h10"/></svg><h3>Six ready-made church ads</h3><p>Plan Your Visit, New in Town, Kids and Families, Prayer, Big Sunday and Still Thinking. Launched to Facebook and Instagram from inside the app, created paused until you turn them on.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><h3>A text within minutes</h3><p>Every lead gets a friendly first text right away, then a gentle follow-up that keeps inviting without nagging.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="m13 7 4 4"/></svg><h3>Replies written for you</h3><p>Open a conversation and the reply is already drafted from your church's own facts. Check it, change a word, press send.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Answers at 11 PM on a Saturday</h3><p>Auto-replies handle service times, kids, parking and what to wear, and pass anything pastoral straight to a person.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg><h3>Cost per first-time guest</h3><p>Each person is tracked from ad to first visit to second visit, so you see what a new family actually costs, not clicks.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="4"/></svg><h3>Works with what you have</h3><p>Planning Center sync, Sunday check-in, a Plan a Visit page, a guest journey board, and an app icon on any phone.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tint monday">
+    <div class="wrap">
+      <div class="head" style="margin:0"><p class="kicker">Monday morning</p><h2>Open the app. See exactly who needs you.</h2><p class="lede">No dashboards to decode. One list, most urgent first, with one button each. Most days it takes a few taps from your phone.</p></div>
+      <div class="panel" role="img" aria-label="Example of the open door Home screen listing people who need a reply">
+        <div class="ph">Needs you today <span>4</span></div>
+        <div class="row"><span class="ic u">!</span><div><b>Reply to Kayla</b><small>Asked to talk with a pastor</small></div><i class="p">Reply</i></div>
+        <div class="row"><span class="ic">✓</span><div><b>Say hi to Daniel</b><small>Instagram ad, 20 minutes ago. We wrote the first text.</small></div><i>Say hi</i></div>
+        <div class="row"><span class="ic">✓</span><div><b>Say hi to Natalie</b><small>Facebook ad, this morning</small></div><i>Say hi</i></div>
+        <div class="row"><span class="ic">✓</span><div><b>Check in with the Lopez family</b><small>Came for the first time Sunday</small></div><i>Open</i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="honest">
+        <div><p class="kicker">Honest by design</p><h2 style="margin-top:12px">Texts never pretend to be a person.</h2></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><p>Auto-replies only answer from facts your church writes, and never make up times, programs or beliefs.</p></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><p>Prayer requests, hard news and anything pastoral go straight to a real person on your team.</p></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><p>If someone asks whether they're texting a bot, they get an honest answer and a person follows up.</p></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><p>Texts only go to people who said yes, and STOP always works.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tint">
+    <div class="wrap">
+      <div class="head"><p class="kicker">Compare</p><h2>Agency results, without the agency.</h2></div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th scope="col"></th><th scope="col">Ad agency</th><th scope="col">Church texting app</th><th scope="col" class="us">open door</th></tr></thead>
+          <tbody>
+            <tr><td>Makes and launches your ads</td><td>Yes, they run them for you</td><td>No</td><td class="us">Yes, from inside the app</td></tr>
+            <tr><td>Texts every lead within minutes</td><td>Hands leads to your team</td><td>You set it up</td><td class="us">Yes, automatically</td></tr>
+            <tr><td>Writes your replies</td><td>No</td><td>Saved templates</td><td class="us">Drafted for each conversation</td></tr>
+            <tr><td>Shows who came on Sunday</td><td>Depends on the agency</td><td>No</td><td class="us">Cost per first-time guest</td></tr>
+            <tr><td>You own your ads and contacts</td><td>Depends on the agency</td><td>Yes</td><td class="us">Yes</td></tr>
+            <tr><td>Monthly cost</td><td>A management fee plus ads</td><td>From about $37</td><td class="us">From $59 for the app, plus the ad budget you choose</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pricing">
+    <div class="wrap">
+      <div class="head"><p class="kicker">Pricing</p><h2>Priced by Sunday attendance. Every plan does everything.</h2><p class="lede">These prices are for using open door. Your Facebook and Instagram ad budget is separate, paid straight to Meta, and only while your ads run. 14 days free, no setup fee, and two months free when you pay yearly.</p></div>
+      <div class="plans">
+        <div class="plan"><span class="tag">Under 150 on Sunday</span><h3>Small</h3><div class="price">$59<small> / month</small></div><div class="yr">or $590 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>1,000 texts a month</li><li>Unlimited ads and staff</li></ul><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
+        <div class="plan pop"><span class="tag">150 to 500 on Sunday · most popular</span><h3>Growing</h3><div class="price">$119<small> / month</small></div><div class="yr">or $1,190 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>3,000 texts a month</li><li>Unlimited ads and staff</li></ul><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
+        <div class="plan"><span class="tag">500+ on Sunday</span><h3>Large</h3><div class="price">$199<small> / month</small></div><div class="yr">or $1,990 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>7,500 texts a month</li><li>Unlimited ads and staff</li></ul><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
+      </div>
+      <div class="founding"><b>Founding church offer</b><p>The first 20 churches get half off for their first year. In return, we'd love to share your results.</p><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Claim a founding spot</a></div>
+      <div class="lifetime">
+        <div><p class="kicker">Or pay once</p><h3 style="font-size:28px">Own open door for life.</h3><p>For the first 50 churches: buy the platform once and keep it, with every future feature. Texting is a separate $15 a month, because every text costs us money too.</p></div>
+        <div class="lifeprices">
+          <div><span>Small</span><b>$1,490</b><small>once</small></div>
+          <div><span>Growing</span><b>$2,990</b><small>once</small></div>
+          <div><span>Large</span><b>$4,990</b><small>once</small></div>
+        </div>
+      </div>
+      <div class="spend" id="ad-budget">
+        <div class="spend-head"><p class="kicker">Plus your ad budget</p><h3 style="font-size:30px">You set it, Meta charges it, and you can stop anytime.</h3><p>Ads are pay as you go. Meta bills your own card for what your ads actually spend, open door never touches that money, and when you pause an ad the spending stops. Here is what churches typically spend and what to expect.</p></div>
+        <div class="tablewrap"><table>
+          <thead><tr><th scope="col">Budget</th><th scope="col">Per day</th><th scope="col">About per month</th><th scope="col">Good for</th></tr></thead>
+          <tbody>
+            <tr><td>Try it</td><td class="num">$5 to $10</td><td class="num">$150 to $300</td><td>Testing your first ad and getting your first few people</td></tr>
+            <tr><td>Steady</td><td class="num">$10 to $20</td><td class="num">$300 to $600</td><td>A typical starting budget for a church that wants new people every month</td></tr>
+            <tr><td>Growth</td><td class="num">$30 to $50</td><td class="num">$900 to $1,500</td><td>A consistent flow of new people, or a church plant before launch</td></tr>
+          </tbody>
+        </table></div>
+        <ul class="expect">
+          <li><b>$5 to $25</b><span>is a typical cost for one person to fill in your form, depending on your town and your ad. Short videos of your pastor usually cost less than photos.</span></li>
+          <li><b>12 to 60</b><span>people a month is a realistic range at about $300 a month. Not all of them will come, which is why a fast, friendly text matters so much.</span></li>
+          <li><b>$40 to $150</b><span>in ad spend per first-time guest is a reasonable range. open door shows your real number, so you can see what's working.</span></li>
+        </ul>
+        <p class="src">Ranges from published church marketing guides by <a href="https://churchcandy.com/church-ads/">ChurchCandy</a>, <a href="https://churchcandy.com/facebook-ads-for-churches-your-outreach-strategy/">ChurchCandy's Facebook ads guide</a> and <a href="https://topmarketingagencies.com/top-church-marketing-agencies/">TopMarketingAgencies</a>. Every town is different and results are not guaranteed. Give a new ad two to three weeks before judging it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tint" id="faq">
+    <div class="wrap">
+      <div class="head"><p class="kicker">Questions</p><h2>Things pastors ask us.</h2></div>
+      <div class="faq">
+        <details><summary>Do I need to know how to run Facebook ads?</summary><p>No. open door writes the ad with your church's details, makes the picture with you, and sets up the form, campaign and ad in Facebook and Instagram. You never have to open Ads Manager.</p></details>
+        <details><summary>How much should we spend on ads?</summary><p>You choose, and it is separate from your open door plan. Many churches start at $10 to $20 a day, about $300 to $600 a month, paid straight to Meta from your own card. You can test with $5 a day. Ads are created paused, so nothing is spent until you press Turn on, and you can pause anytime. See <a href="#ad-budget">what to expect</a>.</p></details>
+        <details><summary>Who actually texts the people who sign up?</summary><p>Your team, with help. The first text goes out automatically, simple questions get automatic answers, and everything else waits for you with a reply already written. Nothing pastoral is ever answered automatically.</p></details>
+        <details><summary>We already use Planning Center. Do we have to switch?</summary><p>No. open door adds new guests to Planning Center for you and reads Sunday check-ins back, so each person's journey stays up to date.</p></details>
+        <details><summary>How long does setup take?</summary><p>About 10 minutes for the church details, since open door reads your website for you. Connecting Facebook is a few clicks. A new texting number needs carrier approval, which can take a few days.</p></details>
+        <details><summary>Can we cancel?</summary><p>Yes, anytime, from the Billing page. Your ads stay in your own Facebook account.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="final">
+        <svg class="mk" aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg>
+        <h2>Someone near you is looking for a church this week.</h2>
+        <p class="lede">Make sure they find yours, and that someone texts them back.</p>
+        <a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start your 14-day free trial</a>
+      </div>
+      <div class="biz" style="margin-top:72px">
+        <h3>Running a local business?</h3>
+        <p>A version of open door for dentists, auto shops, home services and gyms is in the works: the same ads, instant follow-up and booked-appointment tracking.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="open door home"><svg class="mk" aria-hidden="true" style="height:26px"><use href="#door" width="100%" height="100%"/></svg><svg class="wm" aria-hidden="true" style="height:18px"><use href="#wm" width="100%" height="100%"/></svg></a>
+    <span>Guest follow-up for churches. Built alongside Golden City Church.</span>
+    <a href="https://open-door-production-0295.up.railway.app/#/login">Sign in</a>
+  </div>
+</footer>
+<script>
+  // Light or dark: light by default, the visitor's choice remembered on this device.
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('mode');
+    var set = function (m) { root.dataset.mode = m; btn.setAttribute('aria-label', m === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'); };
+    var saved = 'light'; try { saved = localStorage.getItem('od-mode') || 'light'; } catch (e) {}
+    set(saved);
+    btn.addEventListener('click', function () { var m = root.dataset.mode === 'dark' ? 'light' : 'dark'; set(m); try { localStorage.setItem('od-mode', m); } catch (e) {} });
+  })();
+</script>
+</body>
+</html>
