@@ -164,6 +164,11 @@ th.us { color: var(--red); }
 .founding p { color: var(--muted); flex: 1; min-width: 240px; }
 .fine { margin-top: 16px; color: var(--muted); font-size: 14px; }
 
+/* done with you */
+.dwy { margin-top: 22px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 22px; padding: 22px 26px; background: var(--paper); }
+.dwy > div { flex: 1; min-width: 260px; }
+.dwy p:not(.kicker) { color: var(--muted); margin-top: 6px; }
+
 /* pay once */
 .lifetime { margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 28px; align-items: center; border: 1px solid var(--line); border-radius: 28px; padding: 28px 30px; background: var(--paper); }
 .lifetime p { color: var(--muted); margin-top: 8px; }
@@ -363,7 +368,7 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
             <tr><td>Writes your replies</td><td>No</td><td>Saved templates</td><td class="us">Drafted for each conversation</td></tr>
             <tr><td>Shows who came on Sunday</td><td>Depends on the agency</td><td>No</td><td class="us">Cost per first-time guest</td></tr>
             <tr><td>You own your ads and contacts</td><td>Depends on the agency</td><td>Yes</td><td class="us">Yes</td></tr>
-            <tr><td>Monthly cost</td><td>A management fee plus ads</td><td>From about $37</td><td class="us">From $59 for the app, plus the ad budget you choose</td></tr>
+            <tr><td>Monthly cost</td><td>A management fee plus ads</td><td>From about $37</td><td class="us">From $99 for the app, plus the ad budget you choose</td></tr>
           </tbody>
         </table>
       </div>
@@ -372,19 +377,20 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
 
   <section class="block" id="pricing">
     <div class="wrap">
-      <div class="head"><p class="kicker">Pricing</p><h2>Priced by Sunday attendance. Every plan does everything.</h2><p class="lede">These prices are for using open door. Your Facebook and Instagram ad budget is separate, paid straight to Meta, and only while your ads run. 14 days free, no setup fee, and two months free when you pay yearly.</p></div>
+      <div class="head"><p class="kicker">Pricing</p><h2>Every plan does everything. Bigger churches get more room.</h2><p class="lede">These prices are for using open door. Your Facebook and Instagram ad budget is separate, paid straight to Meta, and only while your ads run. 14 days free, no setup fee, and two months free when you pay yearly. Extra texts past your plan are $10 for 500.</p></div>
       <div class="plans">
-        <div class="plan"><span class="tag">Under 150 on Sunday</span><h3>Small</h3><div class="price">$59<small> / month</small></div><div class="yr">or $590 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>1,000 texts a month</li><li>Unlimited ads and staff</li></ul><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
-        <div class="plan pop"><span class="tag">150 to 500 on Sunday · most popular</span><h3>Growing</h3><div class="price">$119<small> / month</small></div><div class="yr">or $1,190 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>3,000 texts a month</li><li>Unlimited ads and staff</li></ul><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
-        <div class="plan"><span class="tag">500+ on Sunday</span><h3>Large</h3><div class="price">$199<small> / month</small></div><div class="yr">or $1,990 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>7,500 texts a month</li><li>Unlimited ads and staff</li></ul><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
+        <div class="plan"><span class="tag">Under 150 on Sunday</span><h3>Small</h3><div class="price">$99<small> / month</small></div><div class="yr">or $990 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>Up to 1,000 people</li><li>750 texts a month</li><li>3 team members</li><li>2 ads running at once</li><li>Email support</li></ul><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
+        <div class="plan pop"><span class="tag">150 to 500 on Sunday · most popular</span><h3>Growing</h3><div class="price">$179<small> / month</small></div><div class="yr">or $1,790 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>Up to 5,000 people</li><li>2,000 texts a month</li><li>10 team members</li><li>5 ads running at once</li><li>A 30-minute setup call</li></ul><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
+        <div class="plan"><span class="tag">500+ on Sunday</span><h3>Large</h3><div class="price">$279<small> / month</small></div><div class="yr">or $2,790 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>Unlimited people</li><li>4,000 texts a month</li><li>Unlimited team members</li><li>Unlimited ads</li><li>Setup call and a quarterly review</li></ul><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
       </div>
+      <div class="dwy"><div><p class="kicker">Want a person helping?</p><h3 style="font-size:24px">Done with you, $349 a month on top of any plan</h3><p>A monthly call, and we build and adjust your ads for you. Hello Church's done-for-you service is $599 a month before ads.</p></div><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start with a free trial</a></div>
       <div class="founding"><b>Founding church offer</b><p>The first 20 churches get half off for their first year. In return, we'd love to share your results.</p><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Claim a founding spot</a></div>
       <div class="lifetime">
-        <div><p class="kicker">Or pay once</p><h3 style="font-size:28px">Own open door for life.</h3><p>For the first 50 churches: buy the platform once and keep it, with every future feature. Texting is a separate $15 a month, because every text costs us money too.</p></div>
+        <div><p class="kicker">Or pay once</p><h3 style="font-size:28px">Own open door for life.</h3><p>For the first 50 churches: buy the platform once and keep it, with every future feature. Texting is a separate $20 a month (750 texts), because every text costs us money too.</p></div>
         <div class="lifeprices">
-          <div><span>Small</span><b>$1,490</b><small>once</small></div>
-          <div><span>Growing</span><b>$2,990</b><small>once</small></div>
-          <div><span>Large</span><b>$4,990</b><small>once</small></div>
+          <div><span>Small</span><b>$2,490</b><small>once</small></div>
+          <div><span>Growing</span><b>$4,490</b><small>once</small></div>
+          <div><span>Large</span><b>$6,990</b><small>once</small></div>
         </div>
       </div>
       <div class="spend" id="ad-budget">
