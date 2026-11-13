@@ -307,6 +307,16 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
 .steps5 li.now .door svg { transform: translateY(-6px) scale(1.12); }
 .steps5 li:hover .door svg { transform: translateY(-4px); }
 
+
+/* doors swing open as each step plays */
+.steps5 .door .glow { fill: #FFD27A; opacity: 0; transition: opacity .6s ease .15s; }
+.steps5 .door .leaf { transform-box: fill-box; transform-origin: 0% 50%; transition: transform .8s cubic-bezier(.3,1.3,.5,1); }
+.steps5 li.lit .door .glow { opacity: .55; }
+.steps5 li.now .door .glow { opacity: 1; filter: drop-shadow(0 0 10px #FFC24A); }
+.steps5 li.lit .door .leaf { transform: perspective(900px) rotateY(-60deg); }
+.steps5 li.now .door .leaf { transform: perspective(900px) rotateY(-70deg); }
+:root[data-mode="dark"] .steps5 .door .glow { fill: #FFC24A; }
+
 /* scroll reveal */
 .r { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); transition-delay: calc(var(--i, 0) * 90ms); }
 .r.seen { opacity: 1; transform: none; }
@@ -455,11 +465,11 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
   <section class="journey" aria-label="The guest journey">
     <div class="wrap">
       <ol class="steps5">
-        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Sees your ad</b><small>On Facebook or Instagram, near your church</small></li>
-        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Gets a text</b><small>From your church, within minutes</small></li>
-        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Picks a Sunday</b><small>Questions answered, seat saved</small></li>
-        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>First visit</b><small>Greeted by name at the door</small></li>
-        <li><span class="door"><svg aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg></span><b>Comes back</b><small>Followed up until they're home</small></li>
+        <li><span class="door"><svg aria-hidden="true" viewBox="100 88 312 388"><path class="glow" d="M162 436V244a94 94 0 0 1 188 0v192Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M140 436V244a116 116 0 0 1 232 0v192" stroke-width="40"/><path class="leaf" d="M184 414V246C184 198 212 172 238 178C262 184 278 208 278 238V392Z" fill="currentColor" stroke-width="18"/></g></svg></span><b>Sees your ad</b><small>On Facebook or Instagram, near your church</small></li>
+        <li><span class="door"><svg aria-hidden="true" viewBox="100 88 312 388"><path class="glow" d="M162 436V244a94 94 0 0 1 188 0v192Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M140 436V244a116 116 0 0 1 232 0v192" stroke-width="40"/><path class="leaf" d="M184 414V246C184 198 212 172 238 178C262 184 278 208 278 238V392Z" fill="currentColor" stroke-width="18"/></g></svg></span><b>Gets a text</b><small>From your church, within minutes</small></li>
+        <li><span class="door"><svg aria-hidden="true" viewBox="100 88 312 388"><path class="glow" d="M162 436V244a94 94 0 0 1 188 0v192Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M140 436V244a116 116 0 0 1 232 0v192" stroke-width="40"/><path class="leaf" d="M184 414V246C184 198 212 172 238 178C262 184 278 208 278 238V392Z" fill="currentColor" stroke-width="18"/></g></svg></span><b>Picks a Sunday</b><small>Questions answered, seat saved</small></li>
+        <li><span class="door"><svg aria-hidden="true" viewBox="100 88 312 388"><path class="glow" d="M162 436V244a94 94 0 0 1 188 0v192Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M140 436V244a116 116 0 0 1 232 0v192" stroke-width="40"/><path class="leaf" d="M184 414V246C184 198 212 172 238 178C262 184 278 208 278 238V392Z" fill="currentColor" stroke-width="18"/></g></svg></span><b>First visit</b><small>Greeted by name at the door</small></li>
+        <li><span class="door"><svg aria-hidden="true" viewBox="100 88 312 388"><path class="glow" d="M162 436V244a94 94 0 0 1 188 0v192Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M140 436V244a116 116 0 0 1 232 0v192" stroke-width="40"/><path class="leaf" d="M184 414V246C184 198 212 172 238 178C262 184 278 208 278 238V392Z" fill="currentColor" stroke-width="18"/></g></svg></span><b>Comes back</b><small>Followed up until they're home</small></li>
       </ol>
     </div>
   </section>
