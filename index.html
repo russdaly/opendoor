@@ -78,12 +78,10 @@ p { margin: 0; }
 .ad .bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; font-size: 13px; }
 .ad .bar i { font-style: normal; background: var(--wash); border-radius: 6px; padding: 5px 10px; font-weight: 700; font-size: 12px; }
 .chat { padding: 6px 12px 16px; display: grid; gap: 8px; }
-.bub { max-width: 82%; padding: 9px 13px; border-radius: 18px; font-size: 14px; line-height: 1.4; animation: rise .5s ease-out both; }
+.bub { max-width: 84%; padding: 9px 13px; border-radius: 18px; font-size: 14px; line-height: 1.4; }
 .bub.out { justify-self: end; background: var(--red); color: #fff; border-bottom-right-radius: 6px; }
 .bub.in { justify-self: start; background: var(--paper); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
-.bub:nth-child(2) { animation-delay: .5s; } .bub:nth-child(3) { animation-delay: 1s; }
-.chip { justify-self: center; font-size: 12px; font-weight: 700; color: var(--green); background: color-mix(in srgb, var(--green) 14%, transparent); padding: 4px 12px; border-radius: 999px; animation: rise .5s 1.5s ease-out both; }
-@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+.chip { justify-self: center; font-size: 12px; font-weight: 700; color: var(--green); background: color-mix(in srgb, var(--green) 14%, transparent); padding: 4px 12px; border-radius: 999px; }
 
 /* journey line */
 .journey { padding: 40px 0 24px; }
@@ -231,7 +229,102 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
   .how { grid-template-columns: minmax(0, 1fr); }
   section.block { padding: 64px 0; }
 }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+
+/* ---------- motion ---------- */
+.demo { display: grid; justify-items: center; gap: 18px; }
+.phone { position: relative; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.demo:hover .phone { transform: translateY(-4px) rotate(-.4deg); }
+.screen { position: relative; }
+.sig { display: inline-flex; gap: 2px; align-items: end; } .sig i { width: 3px; background: currentColor; border-radius: 1px; } .sig i:nth-child(1){height:5px}.sig i:nth-child(2){height:8px}.sig i:nth-child(3){height:11px}
+.scenes { position: relative; height: 540px; overflow: hidden; }
+.scene { position: absolute; inset: 0; opacity: 0; visibility: hidden; transform: translateX(24px); transition: opacity .45s ease, transform .45s ease, visibility 0s .45s; }
+.scene.on { opacity: 1; visibility: visible; transform: none; transition: opacity .45s ease, transform .45s ease; }
+.scene.off { transform: translateX(-24px); }
+.a { opacity: 0; transform: translateY(10px) scale(.98); transition: opacity .35s ease, transform .45s cubic-bezier(.2,.9,.3,1.3); }
+.a.show { opacity: 1; transform: none; }
+.a.gone { display: none; }
+.feed { padding: 4px 0; }
+.ghostpost { margin: 8px 12px 10px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 14px; display: grid; gap: 7px; }
+.ghostpost i { height: 9px; border-radius: 9px; background: var(--line); }
+.signup { transition: background .2s, color .2s; }
+.signup.hit { background: var(--red) !important; color: #fff; }
+.tap { position: absolute; width: 34px; height: 34px; margin: -17px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 22%, transparent); pointer-events: none; z-index: 5; }
+.tap.show { animation: tap .7s ease-out forwards; }
+@keyframes tap { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(1.8); opacity: 0; } }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--paper); border-radius: 24px 24px 0 0; padding: 20px 20px 28px; display: grid; gap: 12px; box-shadow: 0 -20px 50px -20px rgba(36,26,23,.35); transform: translateY(100%); opacity: 1; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.sheet.show { transform: none; }
+.sheet > b { font-family: var(--display); font-size: 19px; }
+.sheet label { display: grid; gap: 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
+.sheet .type { display: block; min-height: 40px; border: 1.5px solid var(--line); border-radius: 12px; padding: 9px 12px; font-size: 15px; font-weight: 500; color: var(--ink); }
+.sheet .type.caret::after { content: ""; display: inline-block; width: 2px; height: 17px; background: var(--red); vertical-align: -3px; margin-left: 1px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.sheet .ck { color: var(--green); font-size: 13px; }
+.sheet .send { text-align: center; background: var(--red); color: #fff; border-radius: 999px; padding: 11px; font-family: var(--display); font-weight: 800; }
+.mhead { display: grid; justify-items: center; gap: 2px; padding: 6px 0 12px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+.mhead .av { width: 40px; height: 40px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-family: var(--display); font-weight: 900; }
+.mhead b { font-size: 14px; } .mhead small { font-size: 11px; color: var(--muted); }
+.when { justify-self: center; font-size: 11px; color: var(--muted); font-weight: 700; }
+.dots { justify-self: end; display: inline-flex; gap: 4px; background: var(--red); padding: 12px 14px; border-radius: 18px 18px 6px 18px; }
+.dots.them { justify-self: start; background: var(--paper); border: 1px solid var(--line); border-radius: 18px 18px 18px 6px; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: dot 1s infinite; }
+.dots.them i { background: var(--muted); }
+.dots i:nth-child(2) { animation-delay: .15s; } .dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 0%, 60%, 100% { transform: none; opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
+.apphead { padding: 10px 20px 14px; display: grid; gap: 2px; }
+.apphead small { color: var(--red); font-weight: 800; font-size: 12px; } .apphead b { font-family: var(--display); font-weight: 900; font-size: 24px; }
+.list { margin: 0 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.li { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid var(--line); font-size: 13px; }
+.li:first-child { border-top: 0; }
+.li > div { flex: 1; } .li b { display: block; font-size: 14px; } .li small { color: var(--muted); font-size: 12px; }
+.li .ini { width: 34px; height: 34px; border-radius: 50%; background: var(--soft); color: var(--red); display: grid; place-items: center; font-weight: 800; font-size: 12px; }
+.li i { font-style: normal; font-weight: 700; font-size: 12px; border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 11px; transition: all .3s; }
+.li i.done { background: var(--green); border-color: var(--green); color: #fff; }
+.toast { position: absolute; left: 14px; right: 14px; bottom: 22px; background: var(--ink); color: var(--paper); border-radius: 16px; padding: 12px 14px; font-size: 13px; font-weight: 700; }
+.player { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 420px; }
+.player button { position: relative; overflow: hidden; isolation: isolate; border: 1.5px solid var(--line); background: var(--paper); color: var(--muted); border-radius: 999px; padding: 6px 12px; font: 700 13px var(--body); cursor: pointer; transition: color .2s, border-color .2s; }
+.player button:hover { color: var(--ink); border-color: var(--ink); }
+.player button span { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--soft); z-index: -1; }
+.player button.cur { color: var(--red); border-color: var(--red); }
+.player .pp { width: 34px; padding: 0; display: grid; place-items: center; }
+.player .pp svg { width: 14px; height: 14px; } .player .pp .pl { display: none; }
+.player.paused .pp .pz { display: none; } .player.paused .pp .pl { display: inline; }
+
+/* journey line fills as the demo plays */
+.steps5::after { content: ""; position: absolute; left: 10%; top: 31px; border-top: 3px solid var(--red); width: calc(var(--fill, 0) * 80%); transition: width .8s ease; }
+.steps5 li { cursor: pointer; z-index: 1; }
+.steps5 .door svg { transition: color .4s, transform .5s cubic-bezier(.2,.9,.3,1.4); }
+.steps5 li.lit .door svg { color: var(--red); }
+.steps5 li.now .door svg { transform: translateY(-6px) scale(1.12); }
+.steps5 li:hover .door svg { transform: translateY(-4px); }
+
+/* scroll reveal */
+.r { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); transition-delay: calc(var(--i, 0) * 90ms); }
+.r.seen { opacity: 1; transform: none; }
+.hero h1 em { background: linear-gradient(var(--soft), var(--soft)) no-repeat 0 88% / 0 .28em; animation: under 1s .6s cubic-bezier(.2,.8,.2,1) forwards; }
+@keyframes under { to { background-size: 100% .28em; } }
+.plan { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+.plan.seen:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -30px rgba(36,26,23,.35); transition-delay: 0s; }
+.feat svg { transition: transform .4s cubic-bezier(.2,.9,.3,1.5); }
+.feat div:hover svg { transform: rotate(-8deg) scale(1.15); }
+.nav { transition: box-shadow .3s; } .nav.scrolled { box-shadow: 0 8px 24px -18px rgba(36,26,23,.45); }
+.progress { position: fixed; left: 0; top: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: var(--red); z-index: 20; }
+
+/* Monday panel demo */
+.row { transition: opacity .35s, transform .35s, max-height .4s .2s, padding .4s .2s; max-height: 120px; }
+.row.leaving { opacity: 0; transform: translateX(40px); max-height: 0; padding-top: 0; padding-bottom: 0; border-top-color: transparent; }
+.row .act { font: 700 13px var(--body); color: var(--ink); background: transparent; border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 12px; white-space: nowrap; cursor: pointer; transition: all .2s; }
+.row .act:hover { border-color: var(--ink); }
+.row .act.p { background: var(--red); color: #fff; border-color: var(--red); }
+.row .act.sent { background: var(--green); border-color: var(--green); color: #fff; }
+.panel .ph span { transition: transform .3s; display: inline-block; }
+.panel .ph span.bump { transform: scale(1.35); }
+.alldone { display: grid; justify-items: center; gap: 6px; padding: 28px 22px 30px; border-top: 1px solid var(--line); text-align: center; animation: rise .5s ease-out both; }
+.alldone[hidden] { display: none; }
+.alldone b { font-family: var(--display); font-size: 20px; } .alldone small { color: var(--muted); }
+.alldone .act { margin-top: 8px; font: 700 13px var(--body); background: transparent; color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } .r { opacity: 1; transform: none; } .hero h1 em { background-size: 100% .28em; } }
 </style>
 </head>
 <body>
@@ -242,6 +335,7 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
   </defs>
 </svg>
 
+<div class="progress" id="progress" aria-hidden="true"></div>
 <header class="nav">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="open door home"><svg class="mk" aria-hidden="true"><use href="#door" width="100%" height="100%"/></svg><svg class="wm" aria-hidden="true"><use href="#wm" width="100%" height="100%"/></svg></a>
@@ -261,21 +355,85 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
         <div class="cta"><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start your 14-day free trial <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="#how">See how it works</a></div>
         <p class="note">No agency. No Ads Manager. Set up in about 10 minutes.</p>
       </div>
-      <div class="phone" role="img" aria-label="Example: a church's ad on Facebook, then the text conversation that follows">
+      <div class="demo">
+      <div class="phone" id="phone" aria-label="Animated example: someone sees a church's ad, gets a text, plans a visit, comes on Sunday and comes back">
         <div class="screen">
-          <div class="sbar"><span>9:41</span><span>Sunday, 7:12 AM</span></div>
-          <div class="ad">
-            <div class="top"><span class="av">G</span><div><b>Grace Hill Church</b><small>Sponsored</small></div></div>
-            <div class="pic"><b>Plan your first visit</b><span>Sundays at 10 AM · Maple Elementary</span></div>
-            <div class="bar"><span><b>Save me a seat</b></span><i>Sign up</i></div>
-          </div>
-          <div class="chat">
-            <div class="bub out">Hi Sarah! Thanks for reaching out to Grace Hill. We'd love to save you a seat Sunday at 10. Bringing any kids?</div>
-            <div class="bub in">Yes, two! 4 and 7. Is there something for them?</div>
-            <div class="bub out">Kids Club has both ages covered. Look for the red door, we'll walk you in.</div>
-            <span class="chip">Sarah is planning to visit Sunday</span>
+          <div class="sbar"><span>9:41</span><span class="sig"><i></i><i></i><i></i></span></div>
+          <div class="scenes">
+            <!-- 1 sees the ad -->
+            <div class="scene" data-dur="6200">
+              <div class="feed">
+                <div class="ghostpost"><i></i><i></i><i style="width:60%"></i></div>
+                <div class="ad">
+                  <div class="top"><span class="av">G</span><div><b>Grace Hill Church</b><small>Sponsored</small></div></div>
+                  <div class="pic"><b>Plan your first visit</b><span>Sundays at 10 AM · Maple Elementary</span></div>
+                  <div class="bar"><span><b>Save me a seat</b></span><i class="signup">Sign up</i></div>
+                </div>
+              </div>
+              <span class="tap a" data-at="1500" data-on=".signup"></span>
+              <div class="sheet a" data-at="1900">
+                <b>Save me a seat</b>
+                <label>Name<span class="type" data-at="2600" data-text="Sarah Mitchell"></span></label>
+                <label>Mobile<span class="type" data-at="3500" data-text="(555) 201-4417"></span></label>
+                <label class="ck">✓ Text me about my visit</label>
+                <span class="send a" data-at="4700">Submit</span>
+                <span class="tap a" data-at="4900" data-on=".send"></span>
+              </div>
+            </div>
+            <!-- 2 gets a text -->
+            <div class="scene" data-dur="6400">
+              <div class="mhead"><span class="av">G</span><b>Grace Hill Church</b><small>Text message · just now</small></div>
+              <div class="chat">
+                <span class="when a" data-at="200">Form sent 7:12 AM · reply 7:13 AM</span>
+                <div class="dots a" data-at="600" data-out="1900"><i></i><i></i><i></i></div>
+                <div class="bub out a" data-at="1900">Hi Sarah! Thanks for reaching out to Grace Hill. We'd love to save you a seat Sunday at 10. A real person on our team reads every message.</div>
+                <div class="dots them a" data-at="3300" data-out="4400"><i></i><i></i><i></i></div>
+                <div class="bub in a" data-at="4400">Thanks! Is there something for kids? Mine are 4 and 7.</div>
+              </div>
+            </div>
+            <!-- 3 picks a Sunday -->
+            <div class="scene" data-dur="6200">
+              <div class="mhead"><span class="av">G</span><b>Grace Hill Church</b><small>Text message</small></div>
+              <div class="chat">
+                <div class="bub in">Thanks! Is there something for kids? Mine are 4 and 7.</div>
+                <div class="dots a" data-at="400" data-out="1600"><i></i><i></i><i></i></div>
+                <div class="bub out a" data-at="1600">Yes! Kids Club has both ages covered. Look for the red door and we'll walk you in.</div>
+                <div class="bub in a" data-at="3100">Perfect, see you Sunday!</div>
+                <span class="chip a" data-at="4200">✓ Sarah is planning to visit Sunday</span>
+              </div>
+            </div>
+            <!-- 4 first visit -->
+            <div class="scene" data-dur="6000">
+              <div class="apphead"><small>Sunday · 10 AM</small><b>Expected today</b></div>
+              <div class="list">
+                <div class="li"><span class="ini">SM</span><div><b>Sarah Mitchell</b><small>First visit · 2 kids</small></div><i class="here">Here</i></div>
+                <div class="li"><span class="ini">JR</span><div><b>James R.</b><small>Second visit</small></div><i>Here</i></div>
+                <div class="li"><span class="ini">AL</span><div><b>Ana L.</b><small>First visit</small></div><i>Here</i></div>
+              </div>
+              <span class="tap a" data-at="1500" data-on=".here"></span>
+              <span class="toast a" data-at="2000">Sarah is checked in. Greeters know she's new.</span>
+            </div>
+            <!-- 5 comes back -->
+            <div class="scene" data-dur="6600">
+              <div class="mhead"><span class="av">G</span><b>Grace Hill Church</b><small>Monday</small></div>
+              <div class="chat">
+                <div class="dots a" data-at="400" data-out="1500"><i></i><i></i><i></i></div>
+                <div class="bub out a" data-at="1500">Sarah, it was so good to meet you and the kids yesterday! Anything we can do for you this week?</div>
+                <div class="bub in a" data-at="3000">The kids loved it. We'll be back!</div>
+                <span class="chip a" data-at="4300">✓ Back a second Sunday</span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="player" role="group" aria-label="Demo steps">
+        <button type="button" data-go="0"><span></span>Sees your ad</button>
+        <button type="button" data-go="1"><span></span>Gets a text</button>
+        <button type="button" data-go="2"><span></span>Picks a Sunday</button>
+        <button type="button" data-go="3"><span></span>First visit</button>
+        <button type="button" data-go="4"><span></span>Comes back</button>
+        <button type="button" class="pp" id="pp" aria-label="Pause demo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path class="pz" d="M7 5h4v14H7zM13 5h4v14h-4z"/><path class="pl" d="M8 5v14l11-7z"/></svg></button>
+      </div>
       </div>
     </div>
   </section>
@@ -332,12 +490,13 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
   <section class="block tint monday">
     <div class="wrap">
       <div class="head" style="margin:0"><p class="kicker">Monday morning</p><h2>Open the app. See exactly who needs you.</h2><p class="lede">No dashboards to decode. One list, most urgent first, with one button each. Most days it takes a few taps from your phone.</p></div>
-      <div class="panel" role="img" aria-label="Example of the open door Home screen listing people who need a reply">
-        <div class="ph">Needs you today <span>4</span></div>
-        <div class="row"><span class="ic u">!</span><div><b>Reply to Kayla</b><small>Asked to talk with a pastor</small></div><i class="p">Reply</i></div>
-        <div class="row"><span class="ic">✓</span><div><b>Say hi to Daniel</b><small>Instagram ad, 20 minutes ago. We wrote the first text.</small></div><i>Say hi</i></div>
-        <div class="row"><span class="ic">✓</span><div><b>Say hi to Natalie</b><small>Facebook ad, this morning</small></div><i>Say hi</i></div>
-        <div class="row"><span class="ic">✓</span><div><b>Check in with the Lopez family</b><small>Came for the first time Sunday</small></div><i>Open</i></div>
+      <div class="panel" aria-label="Example of the open door Home screen. Try the buttons.">
+        <div class="ph">Needs you today <span id="need" aria-live="polite">4</span></div>
+        <div class="row"><span class="ic u">!</span><div><b>Reply to Kayla</b><small>Asked to talk with a pastor</small></div><button type="button" class="act p">Reply</button></div>
+        <div class="row"><span class="ic">✓</span><div><b>Say hi to Daniel</b><small>Instagram ad, 20 minutes ago. We wrote the first text.</small></div><button type="button" class="act">Say hi</button></div>
+        <div class="row"><span class="ic">✓</span><div><b>Say hi to Natalie</b><small>Facebook ad, this morning</small></div><button type="button" class="act">Say hi</button></div>
+        <div class="row"><span class="ic">✓</span><div><b>Check in with the Lopez family</b><small>Came for the first time Sunday</small></div><button type="button" class="act">Open</button></div>
+        <div class="alldone" hidden><b>You're all caught up.</b><small>That's a Monday in open door.</small><button type="button" class="act" id="again">Show it again</button></div>
       </div>
     </div>
   </section>
@@ -458,6 +617,144 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
     var saved = 'light'; try { saved = localStorage.getItem('od-mode') || 'light'; } catch (e) {}
     set(saved);
     btn.addEventListener('click', function () { var m = root.dataset.mode === 'dark' ? 'light' : 'dark'; set(m); try { localStorage.setItem('od-mode', m); } catch (e) {} });
+  })();
+</script>
+<script>
+  // Motion: phone demo, journey line, scroll reveals, Monday panel. Respects reduced motion.
+  (function () {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var $ = function (s, r) { return (r || document).querySelector(s); };
+    var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+    /* ---- phone demo ---- */
+    var scenes = $$('.scene'), btns = $$('.player [data-go]'), player = $('.player'), pp = $('#pp');
+    var steps = $$('.steps5 li'), line = $('.steps5');
+    var cur = -1, timers = [], paused = false, started = 0, remain = 0, advanceT = null;
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function clear() { timers.forEach(clearTimeout); timers = []; clearTimeout(advanceT); }
+    function typeInto(el, text) {
+      el.textContent = ''; el.classList.add('caret');
+      text.split('').forEach(function (ch, i) { later(function () { el.textContent += ch; }, i * 55); });
+      later(function () { el.classList.remove('caret'); }, text.length * 55 + 300);
+    }
+    function reset(sc) {
+      $$('.a', sc).forEach(function (e) { e.classList.remove('show', 'gone'); });
+      $$('.type', sc).forEach(function (e) { e.textContent = ''; e.classList.remove('caret'); });
+      $$('.hit,.done', sc).forEach(function (e) { e.classList.remove('hit', 'done'); });
+      var h = $('.here', sc); if (h) h.textContent = 'Here';
+    }
+    function finish(sc) { // static final state
+      $$('.a', sc).forEach(function (e) { if (e.dataset.out || e.classList.contains('tap')) e.classList.add('gone'); else e.classList.add('show'); });
+      $$('.type', sc).forEach(function (e) { e.textContent = e.dataset.text; });
+      var h = $('.here', sc); if (h) { h.classList.add('done'); h.textContent = '✓ Here'; }
+      var s = $('.signup', sc); if (s) s.classList.add('hit');
+    }
+    function play(sc) {
+      $$('.a', sc).forEach(function (e) {
+        later(function () {
+          if (e.dataset.on) { var t = $(e.dataset.on, sc), sr = (e.offsetParent || sc).getBoundingClientRect(), tr = t && t.getBoundingClientRect();
+            if (tr) { e.style.left = (tr.left - sr.left + tr.width / 2) + 'px'; e.style.top = (tr.top - sr.top + tr.height / 2) + 'px'; } }
+          e.classList.add('show');
+          if (e.classList.contains('tap')) {
+            var s = $('.signup', sc); if (s && !e.closest('.sheet')) s.classList.add('hit');
+            var h = $('.here', sc); if (h) { h.classList.add('done'); h.textContent = '✓ Here'; }
+          }
+        }, +e.dataset.at || 0);
+        if (e.dataset.out) later(function () { e.classList.add('gone'); }, +e.dataset.out);
+      });
+      $$('.type', sc).forEach(function (e) { later(function () { typeInto(e, e.dataset.text); }, +e.dataset.at); });
+    }
+    function show(i, auto) {
+      clear();
+      var prev = scenes[cur];
+      if (prev && prev !== scenes[i]) { prev.classList.remove('on'); prev.classList.add('off'); setTimeout(function () { prev.classList.remove('off'); }, 500); }
+      cur = i; var sc = scenes[i];
+      reset(sc); sc.classList.add('on');
+      btns.forEach(function (b, j) { b.classList.toggle('cur', j === i); b.setAttribute('aria-pressed', j === i); var bar = b.firstChild; bar.style.transition = 'none'; bar.style.width = j < i ? '100%' : '0'; });
+      steps.forEach(function (li, j) { li.classList.toggle('lit', j <= i); li.classList.toggle('now', j === i); });
+      if (line) line.style.setProperty('--fill', i / (steps.length - 1));
+      if (reduce) { finish(sc); return; }
+      play(sc);
+      remain = +sc.dataset.dur; started = Date.now();
+      runBar(btns[i].firstChild, remain, sc.dataset.dur);
+      if (!paused) advanceT = setTimeout(function () { show((cur + 1) % scenes.length, true); }, remain);
+      else pauseBar();
+    }
+    function runBar(bar, ms, total) {
+      var from = (1 - ms / total) * 100;
+      bar.style.transition = 'none'; bar.style.width = from + '%';
+      bar.offsetWidth; bar.style.transition = 'width ' + ms + 'ms linear'; bar.style.width = '100%';
+    }
+    function pauseBar() { var bar = btns[cur].firstChild; var w = getComputedStyle(bar).width; bar.style.transition = 'none'; bar.style.width = w; }
+    if (scenes.length) {
+      btns.forEach(function (b, i) { b.addEventListener('click', function () { show(i); }); });
+      steps.forEach(function (li, i) { li.addEventListener('click', function () { show(i); $('#phone').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }); });
+      pp.addEventListener('click', function () {
+        paused = !paused; player.classList.toggle('paused', paused);
+        pp.setAttribute('aria-label', paused ? 'Play demo' : 'Pause demo');
+        if (paused) { clearTimeout(advanceT); remain = Math.max(800, remain - (Date.now() - started)); pauseBar(); }
+        else { started = Date.now(); runBar(btns[cur].firstChild, remain, scenes[cur].dataset.dur); advanceT = setTimeout(function () { show((cur + 1) % scenes.length, true); }, remain); }
+      });
+      if (reduce) { paused = true; player.classList.add('paused'); pp.hidden = true; }
+      // stop looping while the phone is off screen (saves battery), resume when back
+      if ('IntersectionObserver' in window) {
+        var vis = true;
+        new IntersectionObserver(function (es) {
+          var v = es[0].isIntersecting;
+          if (v === vis) return; vis = v;
+          if (!v && !paused) { clearTimeout(advanceT); }
+          if (v && !paused) show(cur);
+        }).observe($('#phone'));
+      }
+      show(0);
+    }
+
+    /* ---- scroll reveal ---- */
+    if (!reduce && 'IntersectionObserver' in window) {
+      var groups = ['.block .head', '.pains .pain', '.how li', '.feat > div', '.monday .panel', '.honest li', '.tablewrap', '.plans .plan', '.dwy', '.founding', '.lifetime', '.lifeprices > div', '.expect li', '.faq > *'];
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+      groups.forEach(function (g) { $$(g).forEach(function (el, i) { if (el.closest('.hero')) return; el.classList.add('r'); el.style.setProperty('--i', i % 6); io.observe(el); }); });
+      // count prices up the first time they're seen
+      var cio = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return; cio.unobserve(e.target);
+          var node = e.target.firstChild, end = parseInt(node.nodeValue.replace(/[^0-9]/g, ''), 10), t0 = performance.now();
+          (function step(t) { var k = Math.min(1, (t - t0) / 900), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
+            node.nodeValue = '$' + v.toLocaleString('en-US'); if (k < 1) requestAnimationFrame(step); })(t0);
+        });
+      }, { threshold: .6 });
+      $$('.plan .price, .lifeprices b').forEach(function (el) { if (el.firstChild && el.firstChild.nodeType === 3) cio.observe(el); });
+    }
+
+    /* ---- nav shadow and reading progress ---- */
+    var nav = $('.nav'), bar = $('#progress');
+    function onScroll() {
+      var y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
+      nav.classList.toggle('scrolled', y > 8);
+      if (bar) bar.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
+    }
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    /* ---- Monday panel: tap through the list ---- */
+    var need = $('#need'), done = $('.alldone'), again = $('#again');
+    function count() { return $$('.monday .row:not(.leaving)').length; }
+    $$('.monday .row .act').forEach(function (b) {
+      b.dataset.label = b.textContent;
+      b.addEventListener('click', function () {
+        var row = b.closest('.row'); if (row.classList.contains('leaving')) return;
+        b.classList.add('sent'); b.textContent = b.dataset.label === 'Open' ? '✓ Done' : '✓ Sent';
+        setTimeout(function () {
+          row.classList.add('leaving');
+          var n = count(); need.textContent = n; need.classList.add('bump'); setTimeout(function () { need.classList.remove('bump'); }, 300);
+          if (!n) setTimeout(function () { done.hidden = false; }, 450);
+        }, 550);
+      });
+    });
+    if (again) again.addEventListener('click', function () {
+      done.hidden = true;
+      $$('.monday .row').forEach(function (r) { r.classList.remove('leaving'); var b = $('.act', r); b.classList.remove('sent'); b.textContent = b.dataset.label; });
+      need.textContent = count();
+    });
   })();
 </script>
 </body>
