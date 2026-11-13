@@ -166,6 +166,12 @@ th.us { color: var(--red); }
 .fine { margin-top: 16px; color: var(--muted); font-size: 14px; }
 
 /* done with you */
+.plant { margin-top: 22px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; border: 2px solid var(--red); background: var(--soft); border-radius: 22px; padding: 24px 26px; }
+.plant > div:not(.plant-door) { flex: 1; min-width: 260px; }
+.plant p:not(.kicker) { color: var(--muted); margin-top: 6px; }
+.plant .fine { font-size: 14px; }
+.plant-door { width: 64px; flex: none; color: var(--red); }
+.plant-door svg { width: 64px; height: 80px; display: block; }
 .dwy { margin-top: 22px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 22px; padding: 22px 26px; background: var(--paper); }
 .dwy > div { flex: 1; min-width: 260px; }
 .dwy p:not(.kicker) { color: var(--muted); margin-top: 6px; }
@@ -566,6 +572,11 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
         <div class="plan pop"><span class="tag">150 to 500 on Sunday · most popular</span><h3>Growing</h3><div class="price">$179<small> / month</small></div><div class="yr">or $1,790 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>Up to 5,000 people</li><li>2,000 texts a month</li><li>10 team members</li><li>5 ads running at once</li><li>A 30-minute setup call</li></ul><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
         <div class="plan"><span class="tag">500+ on Sunday</span><h3>Large</h3><div class="price">$279<small> / month</small></div><div class="yr">or $2,790 a year</div><div class="only">For open door itself. Ads are paid to Meta separately.</div><ul><li>Every feature</li><li>Unlimited people</li><li>4,000 texts a month</li><li>Unlimited team members</li><li>Unlimited ads</li><li>Setup call and a quarterly review</li></ul><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start free trial</a></div>
       </div>
+      <div class="plant">
+        <div class="plant-door" aria-hidden="true"><svg viewBox="100 88 312 388"><path d="M162 436V244a94 94 0 0 1 188 0v192Z" fill="#FFD27A"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M140 436V244a116 116 0 0 1 232 0v192" stroke-width="40"/><path d="M184 414V246C184 198 212 172 238 178C262 184 278 208 278 238V392Z" fill="currentColor" stroke-width="18" style="transform-box:fill-box;transform-origin:0 50%;transform:perspective(900px) rotateY(-60deg)"/></g></svg></div>
+        <div><p class="kicker">Planting a church?</p><h3 style="font-size:26px">$49 a month until launch Sunday.</h3><p>Everything in open door for your pre-launch season: room for 500 people, 500 texts a month, 3 team members and 2 ads. Build your launch list, fill your interest meetings and invite your city to launch Sunday. On launch day you move to Small at $99 a month, the regular price for churches under 150.</p><p class="fine">Pre-launch only, for up to 12 months before your launch date. Ad budget is separate. Plants usually plan $30 to $50 a day for the 6 to 8 weeks before launch.</p></div>
+        <a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Start as a church plant</a>
+      </div>
       <div class="dwy"><div><p class="kicker">Want a person helping?</p><h3 style="font-size:24px">Done with you, $349 a month on top of any plan</h3><p>A monthly call, and we build and adjust your ads for you. Hello Church's done-for-you service is $599 a month before ads.</p></div><a class="btn ghost" href="https://open-door-production-0295.up.railway.app/#/signup">Start with a free trial</a></div>
       <div class="founding"><b>Founding church offer</b><p>The first 20 churches get half off for their first year. In return, we'd love to share your results.</p><a class="btn" href="https://open-door-production-0295.up.railway.app/#/signup">Claim a founding spot</a></div>
       <div class="lifetime">
@@ -602,6 +613,7 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
       <div class="faq">
         <details><summary>Do I need to know how to run Facebook ads?</summary><p>No. open door writes the ad with your church's details, makes the picture with you, and sets up the form, campaign and ad in Facebook and Instagram. You never have to open Ads Manager.</p></details>
         <details><summary>How much should we spend on ads?</summary><p>You choose, and it is separate from your open door plan. Many churches start at $10 to $20 a day, about $300 to $600 a month, paid straight to Meta from your own card. You can test with $5 a day. Ads are created paused, so nothing is spent until you press Turn on, and you can pause anytime. See <a href="#ad-budget">what to expect</a>.</p></details>
+        <details><summary>We haven't launched yet. Is there a church plant price?</summary><p>Yes. Before launch Sunday, open door is $49 a month with everything included. Tell us your launch date when you sign up. On launch day you move to Small at $99 a month automatically, so there is no surprise. Plant pricing covers up to 12 months before launch.</p></details>
         <details><summary>Who actually texts the people who sign up?</summary><p>Your team, with help. The first text goes out automatically, simple questions get automatic answers, and everything else waits for you with a reply already written. Nothing pastoral is ever answered automatically.</p></details>
         <details><summary>We already use Planning Center. Do we have to switch?</summary><p>No. open door adds new guests to Planning Center for you and reads Sunday check-ins back, so each person's journey stays up to date.</p></details>
         <details><summary>How long does setup take?</summary><p>About 10 minutes for the church details, since open door reads your website for you. Connecting Facebook is a few clicks. A new texting number needs carrier approval, which can take a few days.</p></details>
@@ -735,7 +747,7 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
 
     /* ---- scroll reveal ---- */
     if (!reduce && 'IntersectionObserver' in window) {
-      var groups = ['.block .head', '.pains .pain', '.how li', '.feat > div', '.monday .panel', '.honest li', '.tablewrap', '.plans .plan', '.dwy', '.founding', '.lifetime', '.lifeprices > div', '.expect li', '.faq > *'];
+      var groups = ['.block .head', '.pains .pain', '.how li', '.feat > div', '.monday .panel', '.honest li', '.tablewrap', '.plans .plan', '.plant', '.dwy', '.founding', '.lifetime', '.lifeprices > div', '.expect li', '.faq > *'];
       var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
       groups.forEach(function (g) { $$(g).forEach(function (el, i) { if (el.closest('.hero')) return; el.classList.add('r'); el.style.setProperty('--i', i % 6); io.observe(el); }); });
       // count prices up the first time they're seen
