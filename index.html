@@ -322,6 +322,10 @@ footer .wrap { display: flex; gap: 16px; justify-content: space-between; flex-wr
 .steps5 li.lit .door .leaf { transform: perspective(900px) rotateY(-60deg); }
 .steps5 li.now .door .leaf { transform: perspective(900px) rotateY(-70deg); }
 :root[data-mode="dark"] .steps5 .door .glow { fill: #FFC24A; }
+@media (max-width: 720px) {
+  .steps5::before { display: block; left: 26px; right: auto; top: 32px; bottom: 32px; border-top: 0; border-left: 3px dotted var(--line); }
+  .steps5::after { left: 26px; top: 32px; width: 0; border-top: 0; border-left: 3px solid var(--red); height: calc(var(--fill, 0) * (100% - 64px)); transition: height .8s ease; }
+}
 
 /* scroll reveal */
 .r { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); transition-delay: calc(var(--i, 0) * 90ms); }
